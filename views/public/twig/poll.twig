@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/poll.css">
+        <script src="/js/dashboard.js"></script>
+        <script src="/js/poll.js"></script>
+        <script src="/Chart.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#dataSubmit").click(function(){
+                    var name = $("#pollName").val();
+                    var optionChecked = $("input[name='option']:checked").val();
+                    if(optionChecked==undefined){
+                        return false;
+                    }
+                    $.ajax("/vote", {
+                        type:"POST",
+                        data:{
+                            name: name,
+                            selectedOption: optionChecked
+                        },
+                        success: function(data){
+                            $("#poll-data").remove();
+                            $("#poll").remove();
+                            data = JSON.parse(data);
+                            var options = data.options;
+                            createChart(options, "#vote-chart");
+                            console.log("vote success "+data);
+                        },
+                        error: function(data){
+                            console.log("vote error "+data);
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            {% include "twig/navbar.twig" %}
+            <div id="main-content">
+                {% include "twig/dashTemplate.twig" %}
+            </div>
+        </div>
+    </body>
+</html>

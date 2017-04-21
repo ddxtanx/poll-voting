@@ -1,0 +1,32 @@
+#dash-title{
+    font-size:3.5em;
+}
+#dash-sub{
+    font-size:1.75em;
+}
+#displayed-content{
+    background-color:white;
+}
+.poll-names{
+    float:left;
+    padding-left:1em;
+}
+.poll-delete{
+    float:right;
+    padding-right:1em;
+}
+.poll{
+    text-align:center;
+    vertical-align:middle;
+    height:2em;
+    background-color:#FFF;
+    border: 2px solid #CDCDCD;
+    border-radius:5px;
+}
+#view-poll{
+    width:60%;
+    padding-left:40%;
+}
+tr{
+    padding-bottom:1em;
+}

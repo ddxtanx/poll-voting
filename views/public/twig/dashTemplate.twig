@@ -1,0 +1,77 @@
+<div id="top-content">
+    <p id="dash-title">Dashboard</h1>
+    {% if text is defined%}
+    <div class="alert {{type}}">
+        {{text}}
+    </div>
+    {%endif%}
+    <p id="dash-sub"> What would you like to do?</p>
+    <div id="btns">
+        {%if loggedin %}
+        <button id="add" class="btn btn-info" onclick="$('#add-poll').show('fast'); $('#view-poll').hide('fast'); $('#poll-data').hide('fast');">Add A Poll?</button>
+        {%endif%}
+        {%if dispPoll is not defined%}
+        <button id="disp" class="btn btn-warning" onclick="$('#add-poll').hide('fast'); $('#view-poll').show('fast'); $('#poll-data').hide('fast');">Display Your Polls?</button>
+        {%else%}
+        <button id="poll" class="btn btn-success" onclick="$('#add-poll').hide('fast'); $('#view-poll').hide('fast'); $('#poll-data').show('fast');">Display The Poll?</button>
+        {%endif%}
+    </div>
+</div>
+<div id="displayed-content">
+    {%if loggedin %}
+    <div id="add-poll" style="display: none;">
+        <form action="/dashboard" method="POST">
+            <label for="name">What Is This Poll's Name?</label>
+            <input type="text" name="name" placeholder="Name:"/>
+            <br/>
+            <b>Options</b>
+            <br/>
+            <div id="options">
+                <input type="text" name="option[0]" placeholder="Option 1"/>
+                <br/>
+                <input type="text" name="option[1]" placeholder="Option 2"/>
+            </div>
+            <button type="button" id="add-option">Add An Option?</button>
+            <br/>
+            <input type="submit" class="btn btn-success"/>
+        </form>
+    </div>
+    {%endif%}
+    {%if dispPoll is not defined%}
+    <div id="view-poll">
+        <table width="100%">
+            {%for poll in myPolls%}
+            <tr class="poll myPoll" for-poll="{{poll.dispName}}">
+                <td> 
+                    <a class="poll-names">{{poll.dispName}}</a> 
+                    <button type="button" class="poll-delete btn btn-danger" for-poll="{{poll.dispName}}"> Delete? </button>
+                </td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+    {%endif%}
+    <div id="poll-data">
+        {%if dispPoll==true%}
+            <div id="title">
+                <h1>{{poll.name}}</h1>
+                <h2>By: {{poll.by}}</h2>
+            </div>
+            <div id="dataOptions">
+                <input type="hidden" name="poll" id="pollName" value="{{poll.name}}"/>
+                <table width="100%">
+                    {%for option in poll.options%}
+                        <tr>
+                            <td class="poll"> <input type="radio" class="pollOptions" name="option" value="{{option[0]}}" required>&nbsp &nbsp &nbsp &nbsp{{option[1]}}</input></td>
+                        </tr>
+                    {%endfor%}
+                </table>
+                <button id="dataSubmit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+        {%endif%}
+        <div id="vote-charts">
+                <canvas id="vote-chart" width="100%"></canvas>
+        </div>
+    </div>
+</div>

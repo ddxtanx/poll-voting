@@ -1,0 +1,28 @@
+{
+  "name": "poll-voting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddxtanx/poll-voting.git"
+  },
+  "author": "Garrett Credi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ddxtanx/poll-voting/issues"
+  },
+  "homepage": "https://github.com/ddxtanx/poll-voting#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "chart.js": "^2.5.0",
+    "client-sessions": "^0.7.0",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.26",
+    "morgan": "^1.8.1",
+    "twig": "^1.10.4"
+  }
+}

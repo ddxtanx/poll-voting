@@ -1,0 +1,22 @@
+#poll-data{
+    padding-top: 2em;
+}
+#title{
+    float:left;
+}
+#dataOptions{
+    text-align:center;
+    width: 70%;
+    padding-left:30%;
+}
+#comments{
+    text-align:right;
+}
+.poll{
+    text-align:left;
+    font-size: 2em;
+}
+#dataSubmit{
+    float:left;
+    font-size: 2em;
+}

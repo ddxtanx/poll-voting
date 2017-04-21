@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/navbar.css">
+    </head>
+    <body>
+        <div id="page">
+            {% include 'twig/navbar.twig' %}
+            <div id="main-content">
+                <div>
+                    <div id="content-title">
+                        <p>Poll Voting</p>
+                    </div>
+                    <div id="content-subtitles">
+                        <p>Below are polls hosted by users.</p>
+                        <p>Click on a poll to visit it's page</p>
+                    </div>
+                    <div id="polls">
+                        <table width="100%">
+                            {%for name in pollNames%}
+                            <tr>
+                                <td align='center' width="95%"><a href='poll/{{name.name}}'>{{name.dispName}}</a> </td>
+                            <tr/>
+                            {%endfor%}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

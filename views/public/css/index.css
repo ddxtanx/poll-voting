@@ -1,0 +1,18 @@
+#content-title{
+    padding-top:3%;
+    font-size:3.5em;
+}
+#content-subtitles{
+    font-size:1.75em;
+}
+#polls{
+    width:95%;
+    padding-left:5%;
+}
+td{
+    text-align:center;
+    vertical-align:middle;
+    height:2em;
+    background-color:#FFF;
+    border: 2px solid #ddd;
+}
