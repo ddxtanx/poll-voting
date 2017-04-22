@@ -1,4 +1,7 @@
 var mongo = require('mongodb').MongoClient;
+var user = process.env.USER;
+var password = process.env.PASSWORD;
+var mongoUri = "mongodb://"+user+":"+password+"@ds115071.mlab.com:15071/polls";
 function reg(req, res){
     var email = req.body.email;
     var name = req.body.name;
@@ -7,7 +10,7 @@ function reg(req, res){
     if(pass1!==pass2){
         res.render("twig/register.twig", {type: "alert-danger", text:"Passwords do not match"});
     }
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         if(err) throw err;
         var users = db.collection('users');
         users.find({
@@ -43,7 +46,7 @@ function login(req, res){
     var email = req.body.email;
     var password = req.body.password;
     console.log(email+' '+password)
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         console.log("Connected to db");
        if(err){
            res.render("twig/login.twig", {type: "alert-danger", text:"DB error"});

@@ -8,7 +8,7 @@ var express = require('express'),
 app.set('views', "./views/public/");
 app.use(express.static("./views/public"), body_parser(), session({
   cookieName: 'session',
-  secret: 'tangent-multiverse',
+  secret: process.env.SESSION_SECRET,
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
 }), morgan(':method :url :status :res[content-length] - :response-time ms'));

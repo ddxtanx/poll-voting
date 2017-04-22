@@ -1,4 +1,7 @@
 var mongo = require('mongodb').MongoClient;
+var user = process.env.USER;
+var password = process.env.PASSWORD;
+var mongoUri = "mongodb://"+user+":"+password+"@ds115071.mlab.com:15071/polls";
 function addPoll(name, options, req, res){
     var userName = req.session.name;
     var insertData = {
@@ -14,7 +17,7 @@ function addPoll(name, options, req, res){
         insertData.options[options[x]] = 0;
     }
     console.log("Insert data: "+JSON.stringify(insertData));
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err,db){
+    mongo.connect(mongoUri, function(err,db){
         if(err) throw err;
         var polls = db.collection('polls');
         polls.insert(insertData, function(err, data){
@@ -29,7 +32,7 @@ function addPoll(name, options, req, res){
 function getPolls(req, res){
     var isLoggedIn = req.session.active;
     var name = (isLoggedIn)?req.session.name:false;
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         if(err) throw err;
         var polls = db.collection('polls');
         polls.find({}, {
@@ -48,7 +51,7 @@ function getPolls(req, res){
 function getPoll(name, req, res){
     var loggedIn = req.session.active;
     var userName = (loggedIn)?req.session.name:false;
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         if(err) throw err;
         console.log("poll name "+name);
         var polls = db.collection('polls');
@@ -83,7 +86,7 @@ function getMyPolls(req, res){
         success = encodeURIComponent(success);
     }
     var name = req.session.name;
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         if(err) throw err;
         var polls = db.collection("polls");
         polls.find({
@@ -105,7 +108,7 @@ function vote(req, res){
     console.log(name+" "+option);
     var incOption = {};
     incOption["options."+option] = 1;
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         if(err) throw err;
         var polls = db.collection('polls');
         polls.update({
@@ -131,7 +134,7 @@ function vote(req, res){
 }
 function deletePoll(name, req, res){
     var userName = req.session.name;
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
        if(err) throw err;
        var polls = db.collection('polls');
        polls.remove({
@@ -145,7 +148,7 @@ function deletePoll(name, req, res){
     });
 }
 function pollData(name, req, res){
-    mongo.connect("mongodb://admin:PASSWORDREDACTED@ds115071.mlab.com:15071/polls", function(err, db){
+    mongo.connect(mongoUri, function(err, db){
         if(err) throw err;
         var polls = db.collection('polls');
         polls.find({
