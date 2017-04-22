@@ -98,4 +98,4 @@ app.get("/logout", function(req, res){
    res.redirect("/");
    res.end();
 });
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
