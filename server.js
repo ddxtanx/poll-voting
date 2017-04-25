@@ -92,10 +92,4 @@ app.post("/getPollData", function(req, res){
     console.log("Getting data for "+pollName);
     polls.pollData(pollName, req, res);
 })
-app.get("/logout", function(req, res){
-   req.session.reset();
-   req.session.active = false;
-   res.redirect("/");
-   res.end();
-});
 app.listen(process.env.PORT || 8080);
