@@ -1,3 +1,6 @@
+#main-content *{
+    text-align:center;
+}
 #content-title{
     padding-top:3%;
     font-size:3.5em;

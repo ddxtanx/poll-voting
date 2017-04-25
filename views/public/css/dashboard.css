@@ -1,3 +1,11 @@
+#top-content{
+    text-align: center;
+    background-color: #EEE;
+    border-radius:10px;
+}
+#add-poll{
+     text-align:center;   
+}
 #dash-title{
     font-size:3.5em;
 }

@@ -12,23 +12,32 @@ app.use(express.static("./views/public"), body_parser(), session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
 }), morgan(':method :url :status :res[content-length] - :response-time ms'));
+function veryifyLogin(req, res, callback){
+    if(req.session.active){
+        callback();
+    } else{
+        res.redirect("/login");
+        res.render('twig/login.twig', {'loggedin': false});
+        res.end();
+        return;
+    }
+}
+app.get("/*", function(req, res, next){
+    if(req.session.active == undefined){
+        req.session.reset();
+        req.session.active = false;
+    }
+    next();
+});
 app.get("/", function(req, res){
     res.redirect("/poll");
     res.end();
 });
 app.get("/poll", function(req, res){
     console.log(req.session.active);
-    if(req.session.active == undefined){
-        req.session.reset();
-        req.session.active = false;
-    }
     polls.getPolls(req, res);
 });
 app.get("/register", function(req, res){
-    if(req.session.active == undefined){
-        req.session.reset();
-        req.session.active = false;
-    }
     res.render("twig/register.twig", {loggedin: false, name:false});
 });
 app.post("/register", function(req, res){
